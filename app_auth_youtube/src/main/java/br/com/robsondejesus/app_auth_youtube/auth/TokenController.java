@@ -1,6 +1,5 @@
 package br.com.robsondejesus.app_auth_youtube.auth;
 
-import org.apache.catalina.User;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
