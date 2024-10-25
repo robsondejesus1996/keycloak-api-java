@@ -25,21 +25,24 @@ public class TokenController {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-
         formData.add("client_id", user.client_id);
         formData.add("username", user.username);
-        formData.add("client_secret", user.client_secret);
+        formData.add("password", user.password);
         formData.add("grant_type", user.grant_type);
 
-        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<MultiValueMap<String, String>>(formData, headers);
-
-        var result = rt.postForEntity("http://localhost:8080/realms/youtube/protocol/openid-connect/token",entity, String.class);
-
-        return result;
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(formData, headers);
+        var result = rt.postForObject("http://localhost:8080/realms/youtube/protocol/openid-connect/token", entity, String.class);
+        return ResponseEntity.ok(result);
 
     }
 
-    //String clientId
-    //String password
-    public record User(String client_secret, String client_id, String grant_type, String username){}
+    public record User(String client_id, String grant_type, String username, String password) {
+
+    }
+
+    //http://localhost:8080/realms/youtube/protocol/openid-connect/token
+    //client_id  app_youtube
+    //username   user_youtube
+    //password   12345
+    //grant_type password
 }
